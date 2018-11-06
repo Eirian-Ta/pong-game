@@ -12,8 +12,10 @@ export default class Score {
     	let text = document.createElementNS(SVG_NS, 'text');
     	text.setAttributeNS(null, 'x', this.x);
     	text.setAttributeNS(null, 'y', this.y);
+        text.setAttributeNS(null, 'text-anchor', 'middle');
     	text.setAttributeNS(null, 'font-size', this.size);
     	text.setAttributeNS(null, 'fill', 'white');
+
     	text.textContent = score;
 
     	svg.appendChild(text);
