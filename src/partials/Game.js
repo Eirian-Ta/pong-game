@@ -50,8 +50,8 @@ export default class Game {
     this.ball = new Ball(8, this.width, this.height, 1, 'white');
 
     //Create the Score for 2 players
-    this.player1Score = new Score(this.width * 0.25 - 10, 40, 40);
-    this.player2Score = new Score(this.width * 0.75 - 10, 40, 40);
+    this.player1Score = new Score(this.width * 0.25, 40, 40);
+    this.player2Score = new Score(this.width * 0.75, 40, 40);
 
 
     //Create the Announcement
@@ -92,22 +92,37 @@ export default class Game {
 		this.player2Score.render(svg, this.player2Paddle.score);
 
 
+    //A game shall be won by the player or pair first scoring 11 points.
 
-    if (this.player1Paddle.score == 12 || this.player2Paddle.score == 12) {
+    if (this.player1Paddle.score == 11 || this.player2Paddle.score == 11) {
       if (this.player1Paddle.score === Math.max(this.player1Paddle.score, this.player2Paddle.score)) {
         console.log('Player1 wins');
-        this.pause = false;
+        this.pause = true;
         this.ping4.play();
         let winner = "Player 1 wins";
         this.player1Wins.render(svg, winner);
+        
+         
       }
       else if (this.player2Paddle.score === Math.max(this.player1Paddle.score, this.player2Paddle.score)) {
         console.log('Player2 wins');
-        this.pause = false;
+        this.pause = true;
         this.ping4.play();
         let winner = "Player 2 wins";
         this.player1Wins.render(svg, winner);
+ 
       } 
+
+      document.addEventListener('keydown', event => {
+        switch (event.keyCode) {
+          case KEYS.spaceBar:
+            this.player1Paddle.score = 0;
+            this.player2Paddle.score = 0;
+            break;
+        }
+      });
+
+
     }
   }
 }
